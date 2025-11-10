@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Logística y Envíos</title>
+
+    <style>
+        :root {
+            --main-color: #811F1D;
+            --bg: #f5f5f5;
+            --panel: #ffffff;
+            --text: #111;
+            --border: #ddd;
+        }
+        body { font-family: Arial,cursive; margin:0; padding:0; background-color: var(--bg); color: var(--text); }
+        header { background-color: var(--main-color); color: white; padding: 1rem; text-align: center; }
+        nav { display: flex; background-color: #f0eaea; }
+        nav button { flex:1; padding:0.75rem; border:none; cursor:pointer; background-color:#f0eaea; transition:0.2s; }
+        nav button:hover, nav button.active { background-color: var(--main-color); color:white; }
+
+        .container { padding: 1rem; }
+        .panel { background-color: var(--panel); padding: 1rem; margin-top: 1rem; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        .hidden { display: none; }
+        table { width:100%; border-collapse: collapse; margin-top:0.5rem; }
+        th, td { padding:0.5rem; border:1px solid var(--border); text-align:left; }
+        th { background-color:#eee; }
+        .btn { padding:0.4rem 0.8rem; margin-right:0.3rem; border:none; border-radius:5px; cursor:pointer; color:white; }
+        .btn-primary { background-color: var(--main-color); }
+        .btn-danger { background-color:#d9534f; }
+        .btn-secondary { background-color:#6c757d; }
+        input, select { padding:0.4rem; width:100%; margin-bottom:0.5rem; border-radius:4px; border:1px solid var(--border); }
+        h2 { margin-top:0; }
+
+    </style>
+
+</head>
+<body>
+
+<header>
+    <h1>Sistema de Logística y Envíos</h1>
+</header>
+
+<nav>
+    <button class="active" data-tab="clientes">Clientes</button>
+    <button data-tab="ordenes">Órdenes</button>
+    <button data-tab="transportistas">Transportistas</button>
+    <button data-tab="entregas">Entregas</button>
+    <button data-tab="reporte">Reporte</button>
+
+    <!-- 🔴 BOTÓN DE CERRAR SESIÓN -->
+    <button id="logout-btn" style="background-color:#d9534f;color:white;font-weight:bold;border:none;cursor:pointer;">
+        Cerrar sesión
+    </button>
+</nav>
+
+<div class="container">
+
+    <!-- CLIENTES -->
+    <section id="clientes" class="panel">
+        <h2>Clientes</h2>
+        <form id="cliente-form">
+            <input type="hidden" id="cliente-id">
+            <input type="text" id="cliente-nombre" placeholder="Nombre" required>
+            <input type="text" id="cliente-direccion" placeholder="Dirección" required>
+            <input type="text" id="cliente-telefono" placeholder="Teléfono" required>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-secondary" id="cliente-cancel">Cancelar</button>
+        </form>
+        <table>
+            <thead>
+            <tr><th>ID</th><th>Nombre</th><th>Dirección</th><th>Teléfono</th><th>Acciones</th></tr>
+            </thead>
+            <tbody id="clientes-body"><tr><td colspan="5">Cargando...</td></tr></tbody>
+        </table>
+    </section>
+
+    <!-- ÓRDENES -->
+    <section id="ordenes" class="panel hidden">
+        <h2>Órdenes</h2>
+        <form id="orden-form">
+            <input type="hidden" id="orden-id">
+            <select id="orden-cliente" required></select>
+            <input type="text" id="orden-direccion" placeholder="Dirección" required>
+            <input type="date" id="orden-fecha" required>
+            <select id="orden-estado" required>
+                <option value="Pendiente">Pendiente</option>
+                <option value="Enviado">Enviado</option>
+                <option value="Entregado">Entregado</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-secondary" id="orden-cancel">Cancelar</button>
+        </form>
+        <table>
+            <thead><tr><th>ID</th><th>Cliente</th><th>Destino</th><th>Fecha</th><th>Estado</th><th>Acciones</th></tr></thead>
+            <tbody id="ordenes-body"><tr><td colspan="6">Cargando...</td></tr></tbody>
+        </table>
+    </section>
+
+    <!-- TRANSPORTISTAS -->
+    <section id="transportistas" class="panel hidden">
+        <h2>Transportistas</h2>
+        <form id="transportista-form">
+            <input type="hidden" id="transp-id">
+            <input type="text" id="transp-nombre" placeholder="Nombre" required>
+            <input type="text" id="transp-telefono" placeholder="Teléfono" required>
+            <input type="text" id="transp-vehiculo" placeholder="Vehículo" required>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-secondary" id="transp-cancel">Cancelar</button>
+        </form>
+        <table>
+            <thead><tr><th>ID</th><th>Nombre</th><th>Teléfono</th><th>Vehículo</th><th>Acciones</th></tr></thead>
+            <tbody id="transportistas-body"><tr><td colspan="5">Cargando...</td></tr></tbody>
+        </table>
+    </section>
+
+    <!-- ENTREGAS -->
+    <section id="entregas" class="panel hidden">
+        <h2>Entregas</h2>
+        <form id="entrega-form">
+            <input type="hidden" id="entrega-id">
+            <select id="entrega-orden" required></select>
+            <select id="entrega-transp" required></select>
+            <input type="date" id="entrega-fecha" required>
+            <select id="entrega-estado" required>
+                <option value="A tiempo">A tiempo</option>
+                <option value="Tardía">Tardía</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-secondary" id="entrega-cancel">Cancelar</button>
+        </form>
+        <table>
+            <thead><tr><th>ID</th><th>Orden</th><th>Transportista</th><th>Fecha</th><th>Estado</th><th>Acciones</th></tr></thead>
+            <tbody id="entregas-body"><tr><td colspan="6">Cargando...</td></tr></tbody>
+        </table>
+    </section>
+
+    <!-- REPORTE -->
+    <section id="reporte" class="panel hidden">
+        <h2>Reporte</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID Orden</th>
+                <th>ID Cliente</th>
+                <th>Destino</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Transportista</th>
+                <th>Tiempo</th>
+            </tr>
+            </thead>
+            <tbody id="reporte-body"><tr><td colspan="7">Cargando...</td></tr></tbody>
+        </table>
+    </section>
+
+</div>
+
+<script>
+    const $ = id => document.getElementById(id);
+    const API = 'http://localhost:8080/api';
+    const token = localStorage.getItem('token');
+
+    if(!token) console.warn('No se encontró token. Las peticiones pueden fallar.');
+
+    // --- Navegación ---
+    const tabs = document.querySelectorAll('nav button');
+    const sections = document.querySelectorAll('section');
+    tabs.forEach(btn => {
+        btn.addEventListener('click', ()=>{
+            tabs.forEach(b=>b.classList.remove('active'));
+            btn.classList.add('active');
+            const tab = btn.dataset.tab;
+            sections.forEach(s=>s.classList.add('hidden'));
+            $(tab).classList.remove('hidden');
+            if(tab==="clientes") loadClientes();
+            if(tab==="ordenes"){ loadOrdenes(); loadClientesOptions(); }
+            if(tab==="transportistas") loadTransportistas();
+            if(tab==="entregas"){ loadEntregas(); loadOrdenesOptions(); loadTransportistasOptions(); }
+            if(tab==="reporte") loadReporte();
+        });
+    });
+
+    // --- Fetch genérico ---
+    async function fetchData(url, options={}) {
+        options.headers = {...(options.headers||{}), 'Content-Type':'application/json'};
+        if(token) options.headers['Authorization'] = 'Bearer ' + token;
+        try {
+            const res = await fetch(url, options);
+            if(!res.ok) throw new Error('HTTP ' + res.status);
+            return await res.json();
+        } catch(err) {
+            console.error('Fetch error:', err);
+            return [];
+        }
+    }
+
+    // --- Clientes ---
+    async function loadClientes(){
+        const data = await fetchData(`${API}/clientes`);
+        $('clientes-body').innerHTML = data.length ? data.map(c=>`
+<tr>
+<td>${c.id}</td><td>${c.nombre}</td><td>${c.direccion}</td><td>${c.telefono}</td>
+<td>
+<button class="btn btn-primary" onclick="editCliente(${c.id})">Editar</button>
+<button class="btn btn-danger" onclick="deleteCliente(${c.id})">Eliminar</button>
+</td>
+</tr>`).join(''):'<tr><td colspan="5">Sin datos</td></tr>';
+    }
+    async function saveCliente(ev){
+        ev.preventDefault();
+        const id = $('cliente-id').value;
+        const body = { nombre:$('cliente-nombre').value, direccion:$('cliente-direccion').value, telefono:$('cliente-telefono').value };
+        const url = id ? `${API}/clientes/${id}`:`${API}/clientes`;
+        await fetchData(url,{method:id?'PUT':'POST', body:JSON.stringify(body)});
+        $('cliente-form').reset(); $('cliente-id').value=''; loadClientes();
+    }
+    function editCliente(id){ fetchData(`${API}/clientes/${id}`).then(c=>{$('cliente-id').value=c.id; $('cliente-nombre').value=c.nombre; $('cliente-direccion').value=c.direccion; $('cliente-telefono').value=c.telefono; }); }
+    function deleteCliente(id){ if(confirm('Eliminar cliente?')) fetchData(`${API}/clientes/${id}`,{method:'DELETE'}).then(loadClientes); }
+    $('cliente-form').addEventListener('submit',saveCliente);
+    $('cliente-cancel').addEventListener('click',()=>{$('cliente-form').reset(); $('cliente-id').value='';});
+
+    // --- Transportistas ---
+    async function loadTransportistas(){
+        const data = await fetchData(`${API}/transportistas`);
+        $('transportistas-body').innerHTML = data.length ? data.map(t=>`
+<tr><td>${t.id}</td><td>${t.nombre}</td><td>${t.telefono}</td><td>${t.vehiculo}</td>
+<td>
+<button class="btn btn-primary" onclick="editTransportista(${t.id})">Editar</button>
+<button class="btn btn-danger" onclick="deleteTransportista(${t.id})">Eliminar</button>
+</td></tr>`).join(''):'<tr><td colspan="5">Sin datos</td></tr>';
+    }
+    async function saveTransportista(ev){
+        ev.preventDefault();
+        const id = $('transp-id').value;
+        const body = {nombre:$('transp-nombre').value, telefono:$('transp-telefono').value, vehiculo:$('transp-vehiculo').value};
+        const url = id ? `${API}/transportistas/${id}` : `${API}/transportistas`;
+        await fetchData(url,{method:id?'PUT':'POST', body:JSON.stringify(body)});
+        $('transportista-form').reset(); $('transp-id').value=''; loadTransportistas();
+    }
+    function editTransportista(id){ fetchData(`${API}/transportistas/${id}`).then(t=>{$('transp-id').value=t.id; $('transp-nombre').value=t.nombre; $('transp-telefono').value=t.telefono; $('transp-vehiculo').value=t.vehiculo; }); }
+    function deleteTransportista(id){ if(confirm('Eliminar transportista?')) fetchData(`${API}/transportistas/${id}`,{method:'DELETE'}).then(loadTransportistas); }
+    $('transportista-form').addEventListener('submit',saveTransportista);
+    $('transp-cancel').addEventListener('click',()=>{$('transportista-form').reset(); $('transp-id').value='';});
+
+    // --- Órdenes ---
+    async function loadClientesOptions(){
+        const clientes = await fetchData(`${API}/clientes`);
+        $('orden-cliente').innerHTML = clientes.map(c=>`<option value="${c.id}">${c.nombre}</option>`).join('');
+    }
+    async function loadOrdenes(){
+        const data = await fetchData(`${API}/ordenes`);
+        $('ordenes-body').innerHTML = data.length ? data.map(o=>`
+<tr>
+<td>${o.id}</td><td>${o.cliente?.nombre||''}</td><td>${o.direccionDestino}</td><td>${o.fechaEnvio}</td><td>${o.estado}</td>
+<td>
+<button class="btn btn-primary" onclick="editOrden(${o.id})">Editar</button>
+<button class="btn btn-danger" onclick="deleteOrden(${o.id})">Eliminar</button>
+</td>
+</tr>`).join(''):'<tr><td colspan="6">Sin datos</td></tr>';
+    }
+    async function saveOrden(ev){
+        ev.preventDefault();
+        const id = $('orden-id').value;
+        const body = { clienteId:parseInt($('orden-cliente').value), direccionDestino:$('orden-direccion').value, fechaEnvio:$('orden-fecha').value, estado:$('orden-estado').value };
+        const url = id ? `${API}/ordenes/${id}` : `${API}/ordenes`;
+        await fetchData(url,{method:id?'PUT':'POST', body:JSON.stringify(body)});
+        $('orden-form').reset(); $('orden-id').value=''; loadOrdenes();
+    }
+    function editOrden(id){ fetchData(`${API}/ordenes/${id}`).then(o=>{$('orden-id').value=o.id; $('orden-cliente').value=o.cliente?.id||''; $('orden-direccion').value=o.direccionDestino; $('orden-fecha').value=o.fechaEnvio; $('orden-estado').value=o.estado; }); }
+    function deleteOrden(id){ if(confirm('Eliminar orden?')) fetchData(`${API}/ordenes/${id}`,{method:'DELETE'}).then(loadOrdenes); }
+    $('orden-form').addEventListener('submit',saveOrden);
+    $('orden-cancel').addEventListener('click',()=>{$('orden-form').reset(); $('orden-id').value='';});
+
+    // --- Entregas ---
+    async function loadOrdenesOptions(){
+        const ordenes = await fetchData(`${API}/ordenes`);
+        $('entrega-orden').innerHTML = ordenes.map(o=>`<option value="${o.id}">${o.cliente?.nombre||''} - ${o.direccionDestino}</option>`).join('');
+    }
+    async function loadTransportistasOptions(){
+        const transp = await fetchData(`${API}/transportistas`);
+        $('entrega-transp').innerHTML = transp.map(t=>`<option value="${t.id}">${t.nombre}</option>`).join('');
+    }
+    async function loadEntregas(){
+        const data = await fetchData(`${API}/entregas`);
+        $('entregas-body').innerHTML = data.length ? data.map(e=>`
+<tr>
+<td>${e.id}</td><td>${e.ordenEnvio?.id||''}</td><td>${e.transportista?.nombre||''}</td><td>${e.fechaEntrega}</td><td>${e.estado}</td>
+<td>
+<button class="btn btn-primary" onclick="editEntrega(${e.id})">Editar</button>
+<button class="btn btn-danger" onclick="deleteEntrega(${e.id})">Eliminar</button>
+</td>
+</tr>`).join(''):'<tr><td colspan="6">Sin datos</td></tr>';
+    }
+    async function saveEntrega(ev){
+        ev.preventDefault();
+        const id = $('entrega-id').value;
+        const body = { ordenEnvioId:parseInt($('entrega-orden').value), transportistaId:parseInt($('entrega-transp').value), fechaEntrega:$('entrega-fecha').value, estado:$('entrega-estado').value };
+        const url = id ? `${API}/entregas/${id}` : `${API}/entregas`;
+        await fetchData(url,{method:id?'PUT':'POST', body:JSON.stringify(body)});
+        $('entrega-form').reset(); $('entrega-id').value=''; loadEntregas();
+    }
+    function editEntrega(id){ fetchData(`${API}/entregas/${id}`).then(e=>{$('entrega-id').value=e.id; $('entrega-orden').value=e.ordenEnvio?.id||''; $('entrega-transp').value=e.transportista?.id||''; $('entrega-fecha').value=e.fechaEntrega; $('entrega-estado').value=e.estado; }); }
+    function deleteEntrega(id){ if(confirm('Eliminar entrega?')) fetchData(`${API}/entregas/${id}`,{method:'DELETE'}).then(loadEntregas); }
+    $('entrega-form').addEventListener('submit',saveEntrega);
+    $('entrega-cancel').addEventListener('click',()=>{$('entrega-form').reset(); $('entrega-id').value='';});
+
+    // --- Reporte ---
+    async function loadReporte(){
+        const data = await fetchData(`${API}/entregas`);
+        $('reporte-body').innerHTML = data.length ? data.map(e=>`
+<tr>
+<td>${e.ordenEnvio?.id||''}</td>
+<td>${e.ordenEnvio?.cliente?.id||''}</td>
+<td>${e.ordenEnvio?.direccionDestino||''}</td>
+<td>${e.ordenEnvio?.fechaEnvio||''}</td>
+<td>${e.ordenEnvio?.estado||''}</td>
+<td>${e.transportista?.nombre||''}</td>
+<td>${e.estado}</td>
+</tr>`).join(''):'<tr><td colspan="7">Sin datos</td></tr>';
+    }
+
+    loadClientes();
+
+    // --- CERRAR SESIÓN ---
+    document.getElementById('logout-btn').addEventListener('click', () => {
+        localStorage.removeItem('token');
+        sessionStorage.clear();
+        alert("Has cerrado sesión exitosamente.");
+        window.location.href = "login.html";
+    });
+</script>
+
+</body>
+</html>
