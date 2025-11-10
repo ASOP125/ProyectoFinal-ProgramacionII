@@ -1,0 +1,428 @@
+{
+	"info": {
+		"_postman_id": "190e8b78-cd3f-47d4-9c3d-dbac599b6f10",
+		"name": "Proyecto Logistica y Envios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49388208",
+		"_collection_link": "https://aorozcop3-7501031.postman.co/workspace/Arleth-'s-Workspace~841890ff-388f-4eab-8c33-fd156eb41bc9/collection/49388208-190e8b78-cd3f-47d4-9c3d-dbac599b6f10?action=share&source=collection_link&creator=49388208"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/clientes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzYyNzM4MzQxLCJleHAiOjE3NjI3NDE5NDF9.G48lNFm9Rfi9B5zWOK36Iv7LIUPl_3EifA_QYPAZX_g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Clientes"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/clientes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzYyNzM4MzQxLCJleHAiOjE3NjI3NDE5NDF9.G48lNFm9Rfi9B5zWOK36Iv7LIUPl_3EifA_QYPAZX_g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Max Smith\",\r\n  \"direccion\": \"Zona 2, El Zapote\",\r\n  \"telefono\": \"80541110\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Añadir nuevo Cliente"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/entregas",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzYyNzM4MzQxLCJleHAiOjE3NjI3NDE5NDF9.G48lNFm9Rfi9B5zWOK36Iv7LIUPl_3EifA_QYPAZX_g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/entregas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"entregas"
+					]
+				},
+				"description": "Listar Entregas"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/transpotistas",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzYyNzM4MzQxLCJleHAiOjE3NjI3NDE5NDF9.G48lNFm9Rfi9B5zWOK36Iv7LIUPl_3EifA_QYPAZX_g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Carlos López\",\r\n  \"telefono\": \"55556789\",\r\n  \"vehiculo\": \"Camión\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/transpotistas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transpotistas"
+					]
+				},
+				"description": "Añadir nuevo Transportista"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/clientes/4",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzYyNzM4MzQxLCJleHAiOjE3NjI3NDE5NDF9.G48lNFm9Rfi9B5zWOK36Iv7LIUPl_3EifA_QYPAZX_g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Max Steel\",\r\n  \"direccion\": \"Zona 10, Ciudad de Guatemala\",\r\n  \"telefono\": \"55555678\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/clientes/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes",
+						"4"
+					]
+				},
+				"description": "Actualizar Clientes"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/transpotistas",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzYyNzM4MzQxLCJleHAiOjE3NjI3NDE5NDF9.G48lNFm9Rfi9B5zWOK36Iv7LIUPl_3EifA_QYPAZX_g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/transpotistas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transpotistas"
+					]
+				},
+				"description": "Listar Transportistas"
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Ordenes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzYyNzM4MzQxLCJleHAiOjE3NjI3NDE5NDF9.G48lNFm9Rfi9B5zWOK36Iv7LIUPl_3EifA_QYPAZX_g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/ordenes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ordenes"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "Añadir Nuevo Transportista",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 200 or 201', function(){pm.expect(pm.response.code).to.be.oneOf([200,201]);});",
+							"pm.test('Response is JSON', function(){pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzYyNzM4MzQxLCJleHAiOjE3NjI3NDE5NDF9.G48lNFm9Rfi9B5zWOK36Iv7LIUPl_3EifA_QYPAZX_g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=utf-8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Juan Pérez\",\r\n  \"telefono\": \"5551-2345\",\r\n  \"vehiculo\": \"Camioneta\"\r\n}\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/transportistas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transportistas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar Transportistas",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzYyNzM4MzQxLCJleHAiOjE3NjI3NDE5NDF9.G48lNFm9Rfi9B5zWOK36Iv7LIUPl_3EifA_QYPAZX_g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/transportistas/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transportistas",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
