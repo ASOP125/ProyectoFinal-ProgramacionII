@@ -1,3 +1,4 @@
+//Cargar datos de los usuarios para crear automaticamente un usuario admin y contraseña en la base de datos
 package umg.edu.logisticayenvios.config;
 
 import org.springframework.boot.CommandLineRunner;
@@ -47,4 +48,5 @@ public class DataLoader implements CommandLineRunner {
         }
     }
 }
+
 
