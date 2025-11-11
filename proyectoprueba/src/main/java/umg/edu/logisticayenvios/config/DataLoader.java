@@ -40,10 +40,11 @@ public class DataLoader implements CommandLineRunner {
         if (usuarioRepository.findByUsername("admin").isEmpty()) {
             Usuario adminUser = new Usuario();
             adminUser.setUsername("admin");
-            adminUser.setPassword(passwordEncoder.encode("admin123")); // cambiar password real
+            adminUser.setPassword(passwordEncoder.encode("admin123")); 
             var rolAdmin = rolRepository.findByNombre("ROLE_ADMIN").get();
             adminUser.setRoles(Set.of(rolAdmin));
             usuarioRepository.save(adminUser);
         }
     }
 }
+
